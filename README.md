@@ -1,6 +1,8 @@
 # Example SDK Module Tutorial
 
-In this tutorial, you will build a functional [Cosmos SDK](https://github.com/cosmos/cosmos-sdk/) module, and in the process, learn the basic concepts and structures in the SDK. Then you can get started building your own modules and include them in decentralized applications. By the end of this tutorial you will have a functional `nameservice`, a mapping of strings to other strings (`map[string]string`). This is similar to [Namecoin](https://namecoin.org/), [ENS](https://ens.domains/), or [Handshake](https://handshake.org/), which all model the traditional DNS systems (`map[domain]zonefile`). Users will be able to buy unused names, or sell/trade their name.
+In this tutorial, you will build a functional [Cosmos SDK](https://github.com/cosmos/cosmos-sdk/) module, and in the process, learn the basic concepts and structures in the SDK. Then you can get started building your own modules and include them in decentralized applications. 
+
+By the end of this tutorial you will have a functional `nameservice`, a mapping of strings to other strings (`map[string]string`). This is similar to [Namecoin](https://namecoin.org/), [ENS](https://ens.domains/), or [Handshake](https://handshake.org/), which all model the traditional DNS systems (`map[domain]zonefile`). Users will be able to buy unused names, or sell/trade their name.
 
 All of the final source code for this tutorial project is in this directory (and compiles), however, it is best to follow along manually and try building the project yourself!
 
@@ -12,7 +14,33 @@ All of the final source code for this tutorial project is in this directory (and
 
 ### Tutorial Parts:
 
-1. Start by building your [`Keeper`](./tutorial/keeper.md)
+Through the course of this tutorial you will create the following files that make up your application:
+
+```bash
+./nameservice
+├── Gopkg.toml
+├── app.go
+├── cmd
+│   ├── nameservicecli
+│   │   └── main.go
+│   └── nameserviced
+│       └── main.go
+└── x
+    └── nameservice
+        ├── client
+        │   └── cli
+        │       ├── query.go
+        │       └── tx.go
+        ├── codec.go
+        ├── handler.go
+        ├── keeper.go
+        ├── msgs.go
+        └── querier.go
+```
+
+Start by creating a new git repository with `git init`. Then, just follow along!
+
+1. Build your [`Keeper`](./tutorial/keeper.md)
 2. Define interactions with your chain through [`Msgs` and `Handlers`](./tutorial/msgs-handlers.md)
 	* [`SetName`](./tutorial/set-name.md)
 	* [`BuyName`](./tutorial/buy-name.md)
@@ -62,7 +90,7 @@ Next open the generated file `~/.nameserviced/config/genesis.json` in a text edi
 
 Open another terminal to run commands against the network you have just created:
 
-> _*NOTE*_: In the below commands `--chain-id` and `accountaddr` are pulled using terminal utilities. You can also just input the raw strings saved from bootstrapping the network above. The commands require `jq` to be installed on your machine.
+> _*NOTE*_: In the below commands `--chain-id` and `accountaddr` are pulled using terminal utilities. You can also just input the raw strings saved from bootstrapping the network above. The commands require [`jq`](https://stedolan.github.io/jq/download/) to be installed on your machine.
 
 ```bash
 # First check the account to ensure you have funds
@@ -81,31 +109,4 @@ nameservicecli query resolve jack.id --chain-id $(cat ~/.nameserviced/config/gen
 # Try out a whois query against the name you just registered
 nameservicecli query whois jack.id --chain-id $(cat ~/.nameserviced/config/genesis.json | jq -r .chain_id)
 # > {"value":"8.8.8.8","owner":"cosmos1l7k5tdt2qam0zecxrx78yuw447ga54dsmtpk2s","price":[{"denom":"mycoin","amount":"5"}]}
-```
-
-
-### Project directory structure
-
-Through the course of this tutorial you will create the following files that make up your application:
-
-```bash
-./nameservice
-├── Gopkg.toml
-├── app.go
-├── cmd
-│   ├── nameservicecli
-│   │   └── main.go
-│   └── nameserviced
-│       └── main.go
-└── x
-    └── nameservice
-        ├── client
-        │   └── cli
-        │       ├── query.go
-        │       └── tx.go
-        ├── codec.go
-        ├── handler.go
-        ├── keeper.go
-        ├── msgs.go
-        └── querier.go
 ```
