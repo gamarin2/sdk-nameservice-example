@@ -38,8 +38,16 @@ Through the course of this tutorial you will create the following files that mak
         └── querier.go
 ```
 
-Start by creating a new git repository with `git init`. Then, just follow along!
+Start by creating a new git repository 
 
+```bash
+cd $GOPATH/src/github.com/{{ .Username }}
+git init 
+```
+
+Then, just follow along! The first step describes the design of our application. If you want to jump directly to the coding section, you can jump directly to the [second step](./tutorial/keeper.md)
+
+1. [Design](./tutorial/app-design.md) the application
 1. Build your [`Keeper`](./tutorial/keeper.md)
 2. Define interactions with your chain through [`Msgs` and `Handlers`](./tutorial/msgs-handlers.md)
 	* [`SetName`](./tutorial/set-name.md)
@@ -61,11 +69,10 @@ If you want to build the `nameservice` application in this repo to see the funct
 curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
 
 # Initialize dep and install dependencies
-dep init
-dep ensure -v -upgrade
+make get_tools && make get_vendor_deps
 
 # Install the app into your $GOBIN
-go install -v ./cmd/...
+make install
 
 # Now you should be able to run the following commands:
 nameserviced help
