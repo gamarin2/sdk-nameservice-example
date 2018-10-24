@@ -79,7 +79,7 @@ nameserviced help
 nameservicecli help
 ```
 
-### Running the live network and using the commands with `nameservicecli`
+### Running the live network and using the commands 
 
 To initialize configuration and a `genesis.json` file for your application and an account for the transactions start by running:
 
