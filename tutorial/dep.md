@@ -99,7 +99,7 @@ install:
     go install ./cmd/nameshakecli
 ```
 
-## Building
+## Building the app
 
 First, you need to install `dep`. Below there is a command for using a shell script from `dep`'s site to preform this install.
 
